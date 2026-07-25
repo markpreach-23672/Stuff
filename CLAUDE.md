@@ -43,8 +43,111 @@ _To be documented as files are added. Update this section whenever the directory
 ```
 Stuff/
 ├── CLAUDE.md          # This file
+├── .claude/skills/    # Vendored skill bundles (see below), some symlinked from .agents/skills/
+├── .agents/skills/    # Skill sources installed via `npx skills add` (taste-skill bundle)
+├── skills-lock.json   # Provenance/hashes for skills installed via `npx skills add`
 └── ...                # Add entries as the project grows
 ```
+
+## Skills
+
+`/plugin` marketplace commands aren't available in this environment (confirmed for both
+`nextlevelbuilder/ui-ux-pro-max-skill` and `anthropics/skills`), so skill bundles are added to
+this repo directly instead of installed as plugins.
+
+### ui-ux-pro-max
+
+The [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) skill bundle (MIT
+licensed) is vendored under `.claude/skills/`. It provides seven skills — `ui-ux-pro-max`,
+`design-system`, `brand`, `design`, `slides`, `banner-design`, and `ui-styling` — covering UI
+styles, color palettes, typography, charts, and UX guidelines across common frontend stacks.
+See `.claude/skills/LICENSE` for licensing.
+
+### taste-skill (frontend design taste)
+
+Installed via `npx skills add https://github.com/Leonxlnx/taste-skill`, which pulled all 13
+skills bundled in that repo into `.agents/skills/` and symlinked them into `.claude/skills/`
+for Claude Code. Provenance and content hashes are tracked in `skills-lock.json`. These are
+plain-text design/prompt-engineering guides — no scripts or binaries:
+
+- `brandkit` — premium brand-kit image generation (logo systems, identity decks)
+- `design-taste-frontend` — anti-slop frontend skill for landing pages/portfolios/redesigns (v2)
+- `design-taste-frontend-v1` — original v1 of the above, kept for backward compatibility
+- `full-output-enforcement` — enforces complete, unabridged code generation
+- `gpt-taste` — UX/UI and GSAP motion engineering with layout randomization
+- `high-end-visual-design` — agency-level fonts, spacing, shadows, and animation defaults
+- `image-to-code` — generates design reference images first, then implements to match
+- `imagegen-frontend-mobile` — premium mobile app screen concept image generation
+- `imagegen-frontend-web` — per-section premium website design reference image generation
+- `industrial-brutalist-ui` — Swiss/military-terminal-inspired brutalist interface style
+- `minimalist-ui` — clean editorial, warm monochrome, flat bento-grid interface style
+- `redesign-existing-projects` — audits and upgrades existing UIs without breaking functionality
+- `stitch-design-taste` — generates `DESIGN.md` files for Google Stitch screen generation
+
+### document-skills and example-skills (anthropics/skills)
+
+`/plugin install document-skills@anthropic-agent-skills` and
+`/plugin install example-skills@anthropic-agent-skills` aren't available in this environment
+either, so both plugins' skill directories were vendored directly from
+[anthropics/skills](https://github.com/anthropics/skills) under `.claude/skills/`. Each skill
+carries its own `LICENSE.txt`.
+
+**document-skills** — document processing:
+- `xlsx` — read, edit, create, and format Excel spreadsheets
+- `docx` — read, edit, create, and format Word documents
+- `pptx` — read, edit, create, and format PowerPoint presentations
+- `pdf` — extract, merge, split, watermark, and fill PDF files
+
+**example-skills** — general-purpose examples:
+- `algorithmic-art` — generative/algorithmic art creation
+- `brand-guidelines` — apply and enforce brand style guides
+- `canvas-design` — canvas-based visual design
+- `doc-coauthoring` — collaborative document authoring
+- `frontend-design` — responsive web/app UI design (viewport-adaptive, not fixed-canvas)
+- `internal-comms` — internal communications drafting
+- `mcp-builder` — building MCP servers
+- `skill-creator` — creating and refining Claude skills
+- `slack-gif-creator` — generating GIFs for Slack
+- `theme-factory` — visual theme generation
+- `web-artifacts-builder` — building web-based artifacts
+- `webapp-testing` — testing web applications
+
+### superpowers (obra/superpowers)
+
+`/plugin install superpowers@claude-plugins-official` isn't available in this environment
+either. The `superpowers` plugin is listed in the `anthropics/claude-plugins-official`
+marketplace but sourced from [obra/superpowers](https://github.com/obra/superpowers) (MIT
+licensed); its 14 skills were vendored directly under `.claude/skills/`, see
+`.claude/skills/LICENSE-superpowers`. A core skills library for TDD, debugging, and
+collaboration workflows:
+
+- `brainstorming` — structured approach to exploring design options before committing
+- `dispatching-parallel-agents` — running multiple subagents concurrently on independent work
+- `executing-plans` — carrying out a written implementation plan step by step
+- `finishing-a-development-branch` — wrapping up and merging/cleaning up a feature branch
+- `receiving-code-review` — processing and acting on code review feedback
+- `requesting-code-review` — preparing and asking for a code review
+- `subagent-driven-development` — delegating implementation work to subagents with review
+- `systematic-debugging` — methodical root-cause debugging process
+- `test-driven-development` — red/green TDD workflow
+- `using-git-worktrees` — isolating work in dedicated git worktrees
+- `using-superpowers` — introduction/entry point to the superpowers skill set
+- `verification-before-completion` — checklist-style verification before calling work done
+- `writing-plans` — drafting implementation plans
+- `writing-skills` — authoring and testing new Claude skills
+
+**SessionStart hook:** the plugin's `hooks/session-start` script (originally
+`${CLAUDE_PLUGIN_ROOT}`-relative) has been adapted and wired up:
+- `.claude/hooks/superpowers-session-start.sh` — reads
+  `.claude/skills/using-superpowers/SKILL.md` (via `$CLAUDE_PROJECT_DIR`) and emits it as
+  `hookSpecificOutput.additionalContext`
+- Registered in `.claude/settings.json` under `hooks.SessionStart`, matcher
+  `startup|clear|compact`, matching the upstream plugin's behavior
+
+This means every new/cleared/compacted session in this repo auto-injects the
+`using-superpowers` skill into context, same as a real plugin install would. If Claude Code
+was already running when `.claude/settings.json` was first created, open `/hooks` once (or
+restart) to pick it up.
 
 ## Key Conventions for AI Assistants
 
