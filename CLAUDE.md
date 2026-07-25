@@ -112,6 +112,35 @@ carries its own `LICENSE.txt`.
 - `web-artifacts-builder` — building web-based artifacts
 - `webapp-testing` — testing web applications
 
+### superpowers (obra/superpowers)
+
+`/plugin install superpowers@claude-plugins-official` isn't available in this environment
+either. The `superpowers` plugin is listed in the `anthropics/claude-plugins-official`
+marketplace but sourced from [obra/superpowers](https://github.com/obra/superpowers) (MIT
+licensed); its 14 skills were vendored directly under `.claude/skills/`, see
+`.claude/skills/LICENSE-superpowers`. A core skills library for TDD, debugging, and
+collaboration workflows:
+
+- `brainstorming` — structured approach to exploring design options before committing
+- `dispatching-parallel-agents` — running multiple subagents concurrently on independent work
+- `executing-plans` — carrying out a written implementation plan step by step
+- `finishing-a-development-branch` — wrapping up and merging/cleaning up a feature branch
+- `receiving-code-review` — processing and acting on code review feedback
+- `requesting-code-review` — preparing and asking for a code review
+- `subagent-driven-development` — delegating implementation work to subagents with review
+- `systematic-debugging` — methodical root-cause debugging process
+- `test-driven-development` — red/green TDD workflow
+- `using-git-worktrees` — isolating work in dedicated git worktrees
+- `using-superpowers` — introduction/entry point to the superpowers skill set
+- `verification-before-completion` — checklist-style verification before calling work done
+- `writing-plans` — drafting implementation plans
+- `writing-skills` — authoring and testing new Claude skills
+
+**Deliberately not vendored:** the plugin's `hooks/` directory (a `SessionStart` hook that
+auto-injects the `using-superpowers` skill into context on every session). Copying it without
+also wiring it into `.claude/settings.json` wouldn't activate it, and doing that wiring is a
+separate, higher-stakes change (an auto-executing hook) that wasn't part of this request.
+
 ## Key Conventions for AI Assistants
 
 ### File Editing
