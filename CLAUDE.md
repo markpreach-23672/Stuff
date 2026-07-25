@@ -43,8 +43,20 @@ _To be documented as files are added. Update this section whenever the directory
 ```
 Stuff/
 ├── CLAUDE.md          # This file
+├── .claude/skills/    # UI/UX Pro Max skill bundle (see below)
 └── ...                # Add entries as the project grows
 ```
+
+## Skills
+
+### ui-ux-pro-max
+
+The [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) skill bundle (MIT
+licensed) is vendored under `.claude/skills/`. `/plugin` marketplace commands aren't available
+in this environment, so the skill files were added directly instead of installed as a plugin.
+It provides seven skills — `ui-ux-pro-max`, `design-system`, `brand`, `design`, `slides`,
+`banner-design`, and `ui-styling` — covering UI styles, color palettes, typography, charts,
+and UX guidelines across common frontend stacks. See `.claude/skills/LICENSE` for licensing.
 
 ## Key Conventions for AI Assistants
 
