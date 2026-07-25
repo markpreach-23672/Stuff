@@ -43,20 +43,46 @@ _To be documented as files are added. Update this section whenever the directory
 ```
 Stuff/
 ├── CLAUDE.md          # This file
-├── .claude/skills/    # UI/UX Pro Max skill bundle (see below)
+├── .claude/skills/    # Vendored skill bundles (see below), some symlinked from .agents/skills/
+├── .agents/skills/    # Skill sources installed via `npx skills add` (taste-skill bundle)
+├── skills-lock.json   # Provenance/hashes for skills installed via `npx skills add`
 └── ...                # Add entries as the project grows
 ```
 
 ## Skills
 
+`/plugin` marketplace commands aren't available in this environment (confirmed for both
+`nextlevelbuilder/ui-ux-pro-max-skill` and `anthropics/skills`), so skill bundles are added to
+this repo directly instead of installed as plugins.
+
 ### ui-ux-pro-max
 
 The [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) skill bundle (MIT
-licensed) is vendored under `.claude/skills/`. `/plugin` marketplace commands aren't available
-in this environment, so the skill files were added directly instead of installed as a plugin.
-It provides seven skills — `ui-ux-pro-max`, `design-system`, `brand`, `design`, `slides`,
-`banner-design`, and `ui-styling` — covering UI styles, color palettes, typography, charts,
-and UX guidelines across common frontend stacks. See `.claude/skills/LICENSE` for licensing.
+licensed) is vendored under `.claude/skills/`. It provides seven skills — `ui-ux-pro-max`,
+`design-system`, `brand`, `design`, `slides`, `banner-design`, and `ui-styling` — covering UI
+styles, color palettes, typography, charts, and UX guidelines across common frontend stacks.
+See `.claude/skills/LICENSE` for licensing.
+
+### taste-skill (frontend design taste)
+
+Installed via `npx skills add https://github.com/Leonxlnx/taste-skill`, which pulled all 13
+skills bundled in that repo into `.agents/skills/` and symlinked them into `.claude/skills/`
+for Claude Code. Provenance and content hashes are tracked in `skills-lock.json`. These are
+plain-text design/prompt-engineering guides — no scripts or binaries:
+
+- `brandkit` — premium brand-kit image generation (logo systems, identity decks)
+- `design-taste-frontend` — anti-slop frontend skill for landing pages/portfolios/redesigns (v2)
+- `design-taste-frontend-v1` — original v1 of the above, kept for backward compatibility
+- `full-output-enforcement` — enforces complete, unabridged code generation
+- `gpt-taste` — UX/UI and GSAP motion engineering with layout randomization
+- `high-end-visual-design` — agency-level fonts, spacing, shadows, and animation defaults
+- `image-to-code` — generates design reference images first, then implements to match
+- `imagegen-frontend-mobile` — premium mobile app screen concept image generation
+- `imagegen-frontend-web` — per-section premium website design reference image generation
+- `industrial-brutalist-ui` — Swiss/military-terminal-inspired brutalist interface style
+- `minimalist-ui` — clean editorial, warm monochrome, flat bento-grid interface style
+- `redesign-existing-projects` — audits and upgrades existing UIs without breaking functionality
+- `stitch-design-taste` — generates `DESIGN.md` files for Google Stitch screen generation
 
 ## Key Conventions for AI Assistants
 
