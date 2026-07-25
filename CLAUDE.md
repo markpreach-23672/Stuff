@@ -84,6 +84,34 @@ plain-text design/prompt-engineering guides — no scripts or binaries:
 - `redesign-existing-projects` — audits and upgrades existing UIs without breaking functionality
 - `stitch-design-taste` — generates `DESIGN.md` files for Google Stitch screen generation
 
+### document-skills and example-skills (anthropics/skills)
+
+`/plugin install document-skills@anthropic-agent-skills` and
+`/plugin install example-skills@anthropic-agent-skills` aren't available in this environment
+either, so both plugins' skill directories were vendored directly from
+[anthropics/skills](https://github.com/anthropics/skills) under `.claude/skills/`. Each skill
+carries its own `LICENSE.txt`.
+
+**document-skills** — document processing:
+- `xlsx` — read, edit, create, and format Excel spreadsheets
+- `docx` — read, edit, create, and format Word documents
+- `pptx` — read, edit, create, and format PowerPoint presentations
+- `pdf` — extract, merge, split, watermark, and fill PDF files
+
+**example-skills** — general-purpose examples:
+- `algorithmic-art` — generative/algorithmic art creation
+- `brand-guidelines` — apply and enforce brand style guides
+- `canvas-design` — canvas-based visual design
+- `doc-coauthoring` — collaborative document authoring
+- `frontend-design` — responsive web/app UI design (viewport-adaptive, not fixed-canvas)
+- `internal-comms` — internal communications drafting
+- `mcp-builder` — building MCP servers
+- `skill-creator` — creating and refining Claude skills
+- `slack-gif-creator` — generating GIFs for Slack
+- `theme-factory` — visual theme generation
+- `web-artifacts-builder` — building web-based artifacts
+- `webapp-testing` — testing web applications
+
 ## Key Conventions for AI Assistants
 
 ### File Editing
