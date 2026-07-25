@@ -136,10 +136,18 @@ collaboration workflows:
 - `writing-plans` — drafting implementation plans
 - `writing-skills` — authoring and testing new Claude skills
 
-**Deliberately not vendored:** the plugin's `hooks/` directory (a `SessionStart` hook that
-auto-injects the `using-superpowers` skill into context on every session). Copying it without
-also wiring it into `.claude/settings.json` wouldn't activate it, and doing that wiring is a
-separate, higher-stakes change (an auto-executing hook) that wasn't part of this request.
+**SessionStart hook:** the plugin's `hooks/session-start` script (originally
+`${CLAUDE_PLUGIN_ROOT}`-relative) has been adapted and wired up:
+- `.claude/hooks/superpowers-session-start.sh` — reads
+  `.claude/skills/using-superpowers/SKILL.md` (via `$CLAUDE_PROJECT_DIR`) and emits it as
+  `hookSpecificOutput.additionalContext`
+- Registered in `.claude/settings.json` under `hooks.SessionStart`, matcher
+  `startup|clear|compact`, matching the upstream plugin's behavior
+
+This means every new/cleared/compacted session in this repo auto-injects the
+`using-superpowers` skill into context, same as a real plugin install would. If Claude Code
+was already running when `.claude/settings.json` was first created, open `/hooks` once (or
+restart) to pick it up.
 
 ## Key Conventions for AI Assistants
 
