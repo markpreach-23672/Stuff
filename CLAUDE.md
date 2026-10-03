@@ -26,6 +26,10 @@ Always confirm with the user before running:
 - `git reset --hard`, `git push --force`, `git clean -f`
 - Deleting branches or overwriting uncommitted work
 
+### Attribution
+- AI assistants should append whatever attribution footer their current session/tooling specifies to commit messages and PR descriptions (e.g. a `Co-Authored-By:` trailer and/or a "Generated with ..." footer). These footers are typically session-specific (they may include a session link), so don't copy a literal footer from a past commit — use the convention your current session provides.
+- If no session-specific attribution instructions are present, no footer is required.
+
 ## Development Setup
 
 _No stack has been chosen yet. Add setup instructions here once the project is initialized._
